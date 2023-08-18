@@ -1,10 +1,43 @@
 const Budget = require('../../models/budget');
+const Income = require('../../models/income');
+const Expense = require('../../models/expense');
 
 module.exports = {
   create,
   update,
   index,
+  getStatisticsData,
 };
+
+async function getStatisticsData(req, res) {
+  try {
+    const budgets = await Budget.find({ user: req.user._id });
+    const expenses = await Expense.find({ user: req.user._id });
+
+    const categoryData = {};
+
+    budgets.forEach((budget) => {
+      const { category, monthlyBudget } = budget;
+      if (!categoryData[category]) {
+        categoryData[category] = { budget: monthlyBudget, totalExpense: 0 };
+      }
+    });
+
+    expenses.forEach((expense) => {
+      const { category, amount } = expense;
+      if (categoryData[category]) {
+        categoryData[category].totalExpense += amount;
+      }
+    });
+
+    const income = await Income.find({ user: req.user._id });
+
+    res.status(200).json({ categoryData, income, expenses });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
 
 async function index(req, res) {
   try {

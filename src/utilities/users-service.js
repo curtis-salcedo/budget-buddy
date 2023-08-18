@@ -29,7 +29,7 @@ export function getToken() {
 
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
-  console.log(payload)
+  // console.log(payload)
   // A JWT's exp is expressed in seconds, not miliseconds
   // if (payload.exp * 1000 > Date.now()) {
   //   // Token has expired

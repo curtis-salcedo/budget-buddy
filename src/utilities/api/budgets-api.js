@@ -13,3 +13,7 @@ export async function updateBudget(budgetId, budgetData) {
 export async function getBudget() {
   return sendRequest(`${BASE_URL}`, 'GET');
 }
+
+export async function getStatisticsData(budgetId) {
+  return sendRequest(`${BASE_URL}/statistics`, 'GET');
+}

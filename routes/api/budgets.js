@@ -10,5 +10,7 @@ router.post('/', budgetCtrl.create);
 router.get('/', budgetCtrl.index);
 // PUT /api/budgets/:id (update an budget)
 router.put('/:id', budgetCtrl.update);
+// GET /api/budgets/statistics (get statistics data)
+router.get('/statistics', budgetCtrl.getStatisticsData);
 
 module.exports = router;

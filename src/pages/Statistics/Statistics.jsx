@@ -19,10 +19,11 @@ import {
 } from 'reactstrap';
 
 export default function Statistics() {
-  const [percentage, setPercentage] = useState(0);
-  const [budget, setBudget] = useState(null);
+  const [percentage, setPercentage] = useState(0)
+  const [budget, setBudget] = useState(null)
+  const { userData } = useContext(DataContext);
 
-
+  
   // Testing Values
   const [percentages, setPercentages] = useState([50, 75, 30, 60, 100]); // Example percentage values
   const categories = [
@@ -39,9 +40,19 @@ export default function Statistics() {
     const percentageBar = () => {
 
       setPercentage(50);
+      fetchData();
     };
     percentageBar();
   }, [budget]);
+
+  const fetchData = async () => {
+    try {
+      const data = await BudgetsAPI.getStatisticsData();
+      setBudget(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Need to pull data for the following:
   // Expenses, Income, Monthly Budget

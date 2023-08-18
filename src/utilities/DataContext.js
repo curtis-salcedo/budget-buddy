@@ -25,24 +25,7 @@ export const DataProvider = (props) => {
     if (activeProfile) {
       fetchAccountDetails();
     }
-    if (activeProfile) {
-      fetchBusinessData();
-    }
   }, [activeProfile]);
-
-  const fetchBusinessData = async () => {
-    try {
-      const budgets = await getBudget();
-      const expenses = await listExpenses();
-      const income = await getIncomes();
-
-      setUserData({ budgets, expenses, income });
-    } catch (err) {
-      console.log('Error at DataContext.js fetchBusinessData', err);
-    }
-  };
-
-  console.log(userData)
   
   const fetchData = async () => {
     try {
