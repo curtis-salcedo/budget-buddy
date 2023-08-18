@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {DataContext} from '../../utilities/DataContext';
 
 import * as BudgetsAPI from '../../utilities/api/budgets-api';
 
@@ -21,7 +20,7 @@ import {
 export default function Statistics() {
   const [percentage, setPercentage] = useState(0)
   const [budget, setBudget] = useState(null)
-  const { userData } = useContext(DataContext);
+  const [stats, setStats] = useState(null);
 
   
   // Testing Values
@@ -45,10 +44,12 @@ export default function Statistics() {
     percentageBar();
   }, [budget]);
 
+  console.log(stats)
+
   const fetchData = async () => {
     try {
       const data = await BudgetsAPI.getStatisticsData();
-      setBudget(data);
+      setStats(data);
     } catch (error) {
       console.log(error);
     }
